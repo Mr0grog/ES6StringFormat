@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>ES6 String.format() Shim</title>
+		<script src="ES6StringFormat.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8">
+			this.assertLogger = function (pass, message) {
+				console[pass ? "log" : "error"](message);
+				
+				var domResult = document.createElement("li");
+				domResult.innerHTML = message.split("\n").join("<br/>");
+				domResult.className = pass ? "pass" : "fail";
+				document.getElementById("results").appendChild(domResult);
+			};
+		</script>
+		<style type="text/css" media="screen">
+			body {
+				font-family: Helvetica, arial, sans-serif;
+			}
+			
+			#results {
+				margin: 0;
+				padding: 0;
+				list-style-type: none;
+				font-family: Monaco, Courier, sans-serif;
+			}
+				
+				#results li {
+					padding: 0.5em;
+				}
+			
+			.pass {
+				background: #dfd;
+			}
+			
+			.fail {
+				color: #fff;
+				background: #a00;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<h1>ECMAScript 6 <code>String.format()</code> Proposal Implementation</h1>
+		<p>See the proposal at: <a href="http://wiki.ecmascript.org/doku.php?id=strawman:string_format_take_two">http://wiki.ecmascript.org/doku.php?id=strawman:string_format_take_two</a></p>
+		<ul id="results"></ul>
+		<script src="ES6StringFormat-tests.js" type="text/javascript" charset="utf-8"></script>
+		
+	</body>
+</html>
