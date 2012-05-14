@@ -1,3 +1,14 @@
+/**
+ * Format string parsing algorithms for ES6 string formatting proposal:
+ * http://wiki.ecmascript.org/doku.php?id=strawman:string_format_take_two
+ * 
+ * These are meant for benchmarking the performance of different methods.
+ * 
+ * (c) 2012 Rob Brackett (rob@robbrackett.com)
+ * This code is free to use under the terms of the accompanying LICENSE.txt file
+ */
+
+
 // utility used by all the algorithms. It could be optimized itself, but we'll keep it constant for the sake of testing the parsing bits
 var findByPath = (function () {
 	// regex for separating the various parts of an identifier from each other

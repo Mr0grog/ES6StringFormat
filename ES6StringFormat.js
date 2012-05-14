@@ -1,6 +1,5 @@
 /**
- * An experimental (and propably very inefficient) implementation of
- * the string formatting proposal from ECMAScript 6.
+ * An experimental implementation of the string formatting proposal from ECMAScript 6.
  * Proposal: http://wiki.ecmascript.org/doku.php?id=strawman:string_format_take_two
  * 
  * It's not quite complete; some number formatting isn't yet there:
