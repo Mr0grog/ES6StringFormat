@@ -4,9 +4,6 @@
  * 
  * It's not quite complete; some number formatting isn't yet there:
  *   - The '#' flag isn't supported
- *   - e/E format specifier isn't supported
- *   - g/G format specifier isn't supported
- *   - Capitalization is incorrect with f/F
  * 
  * (c) 2012 Rob Brackett (rob@robbrackett.com)
  * This code is free to use under the terms of the accompanying LICENSE.txt file
@@ -128,7 +125,7 @@
 	};
 	
 	var formatValue = function (value, specifier) {
-		if (!value) return "";
+		if (value == null) return ""; // can't use !value because NaN would stop here
 		if (value.toFormat) return value.toFormat(specifier);
 		if (typeof(value) === "number") return numberToFormat(value, specifier);
 		return value.toString();
@@ -173,30 +170,60 @@
 	
 		var result = "";
 		switch (type) {
+			// signed decimal number
 			case "d":
 				result = Math.round(value - 0.5).toString(10);
 				result = applyPrecision(result);
 				break;
+			// hex
 			case "x":
 				result = Math.round(value - 0.5).toString(16);
 				break;
 			case "X":
 				result = Math.round(value - 0.5).toString(16).toUpperCase();
 				break;
+			// binary
 			case "b":
 				result = Math.round(value - 0.5).toString(2);
 				break;
+			// octal
 			case "o":
 				result = Math.round(value - 0.5).toString(8);
 				break;
-			// TODO: e,E,g,G types
-			// not quite clear on whether g/G ignores the precision specifier
+			// scientific notation (exponential)
+			case "e":
+			case "E":
+				// FIXME: not sure if the precision specifier should apply here and how
+				// FIXME: not sure how to behave for Infinity and NaN. Leaving it up to toExponential()
+				result = value.toExponential().replace("e", " e");
+				// must have at least two digits in exponent
+				if ((/[+\-]\d$/).test(result)) {
+					result = result.slice(0, -1) + "0" + result.slice(-1);
+				}
+				if (type === "E") {
+					result = result.toUpperCase();
+				}
+				break;
+			// normal or exponential notation, whichever is more appropriate for its magnitude
+			case "g":
+				// FIXME: not quite clear on whether g/G ignores the precision specifier
+				result = value.toString(10);
+				break;
+			case "G":
+				// FIXME: not quite clear on whether g/G ignores the precision specifier
+				result = value.toString(10).toUpperCase();
+				break;
+			// fixed point
 			case "f":
 			case "F":
-				// TODO: proper case for NaN, Infinity
 				// proposal talks about INF and INFINITY, but not sure when each would be used :\
+				// FIXME: not sure how this should behave in the absence of a precision
+				result = value.toFixed(precision || 0);
+				result = result[type === "f" ? "toLowerCase" : "toUpperCase"]();
+				break;
+			case "s":
 			default:
-				result = value.toString(10);
+				result = value.toString();
 				result = applyPrecision(result);
 		}
 	

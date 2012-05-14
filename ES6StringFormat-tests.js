@@ -68,10 +68,28 @@ assertEquals("{0:+4}".format(5), "  +5", "A plus and width format specifier righ
 assertEquals("{0:+04}".format(5), "+005", "A plus with the '0' flag puts padding after the plus sign.");
 assertEquals("{0:.4}".format(5), "5.0000", "A precision specifier results in at least that number of digits after the decimal.");
 assertEquals("{0:.4}".format(5.14326), "5.14326", "A precision specifier does not truncate a number that is more precise.");
-assertEquals("{0:b}".format(10), "1010", "The 'b' type converts a number to binary.")
-assertEquals("{0:o}".format(10), "12", "The 'o' type converts a number to octal.")
-assertEquals("{0:x}".format(10), "a", "The 'x' type converts a number to lower-case hexadecimal.")
-assertEquals("{0:X}".format(10), "A", "The 'X' type converts a number to upper-case hexadecimal.")
+assertEquals("{0:b}".format(10), "1010", "The 'b' type converts a number to binary.");
+assertEquals("{0:o}".format(10), "12", "The 'o' type converts a number to octal.");
+assertEquals("{0:x}".format(10), "a", "The 'x' type converts a number to lower-case hexadecimal.");
+assertEquals("{0:X}".format(10), "A", "The 'X' type converts a number to upper-case hexadecimal.");
+
+assertEquals("{0:e}".format(5), "5 e+00", "The 'e' type converts to scientific notation with at least two digits in the exponent.");
+assertEquals("{0:E}".format(5), "5 E+00", "The 'E' type converts to upper-case scientific notation with at least two digits in the exponent.");
+
+assertEquals("{0:f}".format(5), "5", "The 'f' type converts a number to fixed point.");
+assertEquals("{0:f}".format(5.74392), "6", "The 'f' type converts a number to fixed point and rounds to the appropriate number of digits after the decimal.");
+assertEquals("{0:.2f}".format(5.74392), "5.74", "The 'f' type converts a number to exactly the number of digits after the decimal as specified by precision.");
+assertEquals("{0:f}".format(NaN), "nan", "The 'f' type converts NaN to 'nan'.");
+assertEquals("{0:f}".format(Infinity), "infinity", "The 'f' type converts Infinity to 'infinity'.");
+assertEquals("{0:f}".format(-Infinity), "-infinity", "The 'f' type converts -Infinity to '-infinity'.");
+assertEquals("{0:F}".format(NaN), "NAN", "The 'F' type converts NaN to 'NAN'.");
+assertEquals("{0:F}".format(Infinity), "INFINITY", "The 'F' type converts Infinity to 'INFINITY'.");
+assertEquals("{0:F}".format(-Infinity), "-INFINITY", "The 'F' type converts -Infinity to '-INFINITY'.");
+
+assertEquals("{0:g}".format(5), "5", "The 'g' type converts a simple number to decimal notation.");
+assertEquals("{0:G}".format(5), "5", "The 'G' type converts a simple number to decimal notation.");
+assertEquals("{0:g}".format(0.000000000000005), "5e-15", "The 'g' type converts a tiny number to lower-case scientific notation.");
+assertEquals("{0:G}".format(0.000000000000005), "5E-15", "The 'G' type converts a tiny number to upper-case scientific notation.");
 
 assertEquals("Number {0} can be presented as decimal {0:d}, octex {0:o}, hex {0:x}".format(56),
              "Number 56 can be presented as decimal 56, octex 70, hex 38",

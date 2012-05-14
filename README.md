@@ -57,3 +57,24 @@ This code was really just written on a lark on day, but please feel free to use 
 This code was written by Rob Brackett in 2012 and is licensed under an MIT-style license. See the full text in `LICENSE.txt`. 
 
 Please share and use! This library's best value is as feedback to the TC39 committee on how well the `String.format()` proposal fits your needs.
+
+
+## Issues
+
+This implementation is probably not perfect; the proposal is vague on some parts (it appears to be more about style and syntax than about all the nitty gritty details) and intends to follow standard printf conventions, which I am not an expert on when it comes to edge cases and uncommon scenarios. Feel free to file issues related to correctness.
+
+I am also interested in using this as a tool for developers to provide feedback on the usefulness of the proposal. Are there features that seem unnecessary or not sensible? Features that are missing? Please file issues for those, too.
+
+
+## Other Notes
+
+In implementing this, I ran across some interesting issues:
+
+- Why does the e/E type for number formatting not behave the same as Number.toExponent()? Specifically, the proposal requires the exponent to be at least two digits, while Number.toExponent() does not do this. The proposal also specifies a space between the base and the "e", which toExponential() also does not do. One would assume the two should be harmonious.
+- The proposal is not clear on how the e/E type for number formatting should behave on NaN and Infinity.
+- It is not clear whether precision should apply to the g/G type.
+- The default type/behavior for Number.toFormat() isn't clear. Is it an error to not specify one? If not, what's the default? This implementation currently defaults to "s".
+- It is not clear how the f/F type should behave in the absence of a precision. Is it an error or does it default to some value?
+- The proposal mentions both "inf/INF" and "infinity/Infinity" for the f/F type. Not when each would be used.
+- Not clear on how g/G differs from the s type.
+
