@@ -78,6 +78,7 @@ assertEquals("{0:#X}".format(10), "0XA", "The 'X' type converts a number to uppe
 
 assertEquals("{0:e}".format(5), "5 e+00", "The 'e' type converts to scientific notation with at least two digits in the exponent.");
 assertEquals("{0:E}".format(5), "5 E+00", "The 'E' type converts to upper-case scientific notation with at least two digits in the exponent.");
+assertEquals("{0:#e}".format(5), "5. e+00", "The 'e' type converts to scientific notation with a decimal point when the # flag is used.");
 
 assertEquals("{0:f}".format(5), "5", "The 'f' type converts a number to fixed point.");
 assertEquals("{0:f}".format(5.74392), "6", "The 'f' type converts a number to fixed point and rounds to the appropriate number of digits after the decimal.");
@@ -88,6 +89,7 @@ assertEquals("{0:f}".format(-Infinity), "-infinity", "The 'f' type converts -Inf
 assertEquals("{0:F}".format(NaN), "NAN", "The 'F' type converts NaN to 'NAN'.");
 assertEquals("{0:F}".format(Infinity), "INFINITY", "The 'F' type converts Infinity to 'INFINITY'.");
 assertEquals("{0:F}".format(-Infinity), "-INFINITY", "The 'F' type converts -Infinity to '-INFINITY'.");
+assertEquals("{0:#f}".format(5), "5.", "The 'f' type converts a number to fixed point with a decimal when the # flag is used.");
 
 assertEquals("{0:g}".format(5), "5", "The 'g' type converts a simple number to decimal notation.");
 assertEquals("{0:G}".format(5), "5", "The 'G' type converts a simple number to decimal notation.");
@@ -99,10 +101,11 @@ assertEquals("{0:g}".format(-Infinity), "-infinity", "The 'g' type converts -Inf
 assertEquals("{0:G}".format(NaN), "NAN", "The 'G' type converts NaN to 'NAN'.");
 assertEquals("{0:G}".format(Infinity), "INFINITY", "The 'G' type converts Infinity to 'INFINITY'.");
 assertEquals("{0:G}".format(-Infinity), "-INFINITY", "The 'G' type converts -Infinity to '-INFINITY'.");
-assertEquals("{0:.2g}".format(5), "5", "The 'g' does not append trailing zeroes.");
-assertEquals("{0:#.2g}".format(5), "5.00", "The 'g' does append trailing zeroes when the '#' flag is used.");
-assertEquals("{0:#.2g}".format(Infinity), "infinity", "The 'g' does not append trailing zeroes to Infinity when the '#' flag is used.");
-assertEquals("{0:#.2g}".format(NaN), "nan", "The 'g' does not append trailing zeroes to NaN when the '#' flag is used.");
+assertEquals("{0:.2g}".format(5), "5", "The 'g' type does not append trailing zeroes.");
+assertEquals("{0:#g}".format(5), "5.", "The 'g' type includes a decimal point when the # flag is used.");
+assertEquals("{0:#.2g}".format(5), "5.00", "The 'g' type does append trailing zeroes when the '#' flag is used.");
+assertEquals("{0:#.2g}".format(Infinity), "infinity", "The 'g' type does not append trailing zeroes to Infinity when the '#' flag is used.");
+assertEquals("{0:#.2g}".format(NaN), "nan", "The 'g' type does not append trailing zeroes to NaN when the '#' flag is used.");
 
 assertEquals("Number {0} can be presented as decimal {0:d}, octex {0:o}, hex {0:x}".format(56),
              "Number 56 can be presented as decimal 56, octex 70, hex 38",

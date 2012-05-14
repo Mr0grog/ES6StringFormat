@@ -2,9 +2,6 @@
  * An experimental implementation of the string formatting proposal from ECMAScript 6.
  * Proposal: http://wiki.ecmascript.org/doku.php?id=strawman:string_format_take_two
  * 
- * It's not quite complete; some number formatting isn't yet there:
- *   - The '#' flag isn't supported
- * 
  * (c) 2012 Rob Brackett (rob@robbrackett.com)
  * This code is free to use under the terms of the accompanying LICENSE.txt file
  */
@@ -206,6 +203,10 @@
 				// FIXME: not sure if the precision specifier should apply here and how
 				// FIXME: not sure how to behave for Infinity and NaN. Leaving it up to toExponential()
 				result = value.toExponential().replace("e", " e");
+				// # flag forces a decimal point (not sure if this is correct or if I am misinterpreting the proposal)
+				if (~flags.indexOf("#")) {
+					result = result.replace(/^(\d*)(\se)/, "$1.$2");
+				}
 				// must have at least two digits in exponent
 				if ((/[+\-]\d$/).test(result)) {
 					result = result.slice(0, -1) + "0" + result.slice(-1);
@@ -216,17 +217,13 @@
 				break;
 			// normal or exponential notation, whichever is more appropriate for its magnitude
 			case "g":
-				result = value.toString(10).toLowerCase();
-				// not quite clear on whether g/G ignores the precision specifier, but it seems like # should control this?
-				if (~flags.indexOf("#")) {
-					result = applyPrecision(result);
-				}
-				break;
 			case "G":
-				result = value.toString(10).toUpperCase();
+				result = value.toString(10)[type === "g" ? "toLowerCase" : "toUpperCase"]();
 				// not quite clear on whether g/G ignores the precision specifier, but it seems like # should control this?
 				if (~flags.indexOf("#")) {
 					result = applyPrecision(result);
+					// # flag forces a decimal point (not sure if this is correct or if I am misinterpreting the proposal)
+					result = result.replace(/^(\d*)(\se|$)/i, "$1.$2");
 				}
 				break;
 			// fixed point
@@ -235,6 +232,10 @@
 				// proposal talks about INF and INFINITY, but not sure when each would be used :\
 				// FIXME: not sure how this should behave in the absence of a precision
 				result = value.toFixed(precision || 0);
+				// # flag forces a decimal point (not sure if this is correct or if I am misinterpreting the proposal)
+				if (!precision && ~flags.indexOf("#")) {
+					result += ".";
+				}
 				result = result[type === "f" ? "toLowerCase" : "toUpperCase"]();
 				break;
 			case "s":

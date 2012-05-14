@@ -77,4 +77,6 @@ In implementing this, I ran across some interesting issues:
 - It is not clear how the f/F type should behave in the absence of a precision. Is it an error or does it default to some value?
 - The proposal mentions both "inf/INF" and "infinity/Infinity" for the f/F type. Not when each would be used.
 - Not clear on how g/G differs from the s type.
+- The "#" alternate flag seems a bit odd with exponential notation. (Note it's not even allowed in Python's format(), which the proposal takes cues from.)
+- The "#" alternate flag adds prefixes for octal and hexadecimal, but not for binary, which seems odd.
 
