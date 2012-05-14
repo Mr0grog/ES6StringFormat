@@ -18,7 +18,7 @@ The basic concept is that you can include identifiers inside curly brackets that
 
 Identifiers can also use dot or square bracket notation to dig deeper:
 
-	"The car is made by {car.brand} in {car[year]}.".format({car: {brand: "Nissan", year: 2009});
+	"The car is made by {car.brand} in {car[year]}.".format({car: {brand: "Nissan", year: 2009}});
 	// returns "The car is made by Nissan in 2009."
 
 You can also specify formatting. "Format specifiers" denote how a value should be formatted and are included after a colon inside the curly brackets:
@@ -28,21 +28,21 @@ You can also specify formatting. "Format specifiers" denote how a value should b
 
 You can also use a value as a format specifier:
 
-	"This number has at at least 4 digits after the decimal point: {value:{format}".format({value; 5, format: ".4"});
+	"This number has at at least 4 digits after the decimal point: {value:{format}}".format({value: 5, format: ".4"});
 	// "This number has at at least 4 digits after the decimal point: 5.0000"
 
 Many format specifiers are available. See the proposal for a full list. _(Note: not all are implemented yet)_
 
 Finally, you can provide custom formatting for you own objects by implementing a `toFormat(specifier)` method on them:
 
-	var myObject = {
-	  password: "nyah-nyah!",
+	var password = {
+	  toString: "nyah-nyah!",
 	  toFormat: function (specifier) {
-	    return (specifier === "secret") ? "***" : this.data;
+	    return (specifier === "secret") ? "***" : this.toString();
 	  }
 	};
 	
-	"The password is: {password:secret}".format(myObject);
+	"The password is: {0:secret}".format(password);
 
 There are more nitty gritty details; check the proposal or the tests to see them all.
 
