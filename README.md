@@ -36,7 +36,7 @@ Many format specifiers are available. See the proposal for a full list. _(Note: 
 Finally, you can provide custom formatting for you own objects by implementing a `toFormat(specifier)` method on them:
 
 	var password = {
-	  toString: "nyah-nyah!",
+	  toString: function() { return "nyah-nyah!"; },
 	  toFormat: function (specifier) {
 	    return (specifier === "secret") ? "***" : this.toString();
 	  }
