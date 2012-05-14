@@ -1,7 +1,7 @@
 ECMAScript 6 String.format()
 ============================
 
-This is an ECMAScript 4 based implementation of the current proposal for `String.format()` in ECMAScript 6. You can see the proposal at: [http://wiki.ecmascript.org/doku.php?id=strawman:string_format_take_two](http://wiki.ecmascript.org/doku.php?id=strawman:string_format_take_two)
+This is an ECMAScript 5 based implementation of the current proposal for `String.format()` in ECMAScript 6. You can see the proposal at: [http://wiki.ecmascript.org/doku.php?id=strawman:string_format_take_two](http://wiki.ecmascript.org/doku.php?id=strawman:string_format_take_two)
 
 It is compatible with both broser and Node.js environments.
 
