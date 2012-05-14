@@ -150,7 +150,8 @@
 		}
 	
 		var applyPrecision = function (result) {
-			if (precision) {
+			// only apply precision to numeric strings
+			if (precision && (/^[\d\.]*$/).test(result)) {
 				var afterDecimal = result.split(".")[1];
 				var extraPrecision = precision - afterDecimal;
 				if (isNaN(extraPrecision)) {
@@ -206,12 +207,18 @@
 				break;
 			// normal or exponential notation, whichever is more appropriate for its magnitude
 			case "g":
-				// FIXME: not quite clear on whether g/G ignores the precision specifier
-				result = value.toString(10);
+				result = value.toString(10).toLowerCase();
+				// not quite clear on whether g/G ignores the precision specifier, but it seems like # should control this?
+				if (~flags.indexOf("#")) {
+					result = applyPrecision(result);
+				}
 				break;
 			case "G":
-				// FIXME: not quite clear on whether g/G ignores the precision specifier
 				result = value.toString(10).toUpperCase();
+				// not quite clear on whether g/G ignores the precision specifier, but it seems like # should control this?
+				if (~flags.indexOf("#")) {
+					result = applyPrecision(result);
+				}
 				break;
 			// fixed point
 			case "f":
