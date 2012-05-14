@@ -179,9 +179,15 @@
 			// hex
 			case "x":
 				result = Math.round(value - 0.5).toString(16);
+				if (~flags.indexOf("#")) {
+					result = "0x" + result;
+				}
 				break;
 			case "X":
 				result = Math.round(value - 0.5).toString(16).toUpperCase();
+				if (~flags.indexOf("#")) {
+					result = "0X" + result;
+				}
 				break;
 			// binary
 			case "b":
@@ -190,6 +196,9 @@
 			// octal
 			case "o":
 				result = Math.round(value - 0.5).toString(8);
+				if (~flags.indexOf("#")) {
+					result = "0" + result;
+				}
 				break;
 			// scientific notation (exponential)
 			case "e":

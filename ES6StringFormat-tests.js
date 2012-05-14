@@ -70,8 +70,11 @@ assertEquals("{0:.4}".format(5), "5.0000", "A precision specifier results in at 
 assertEquals("{0:.4}".format(5.14326), "5.14326", "A precision specifier does not truncate a number that is more precise.");
 assertEquals("{0:b}".format(10), "1010", "The 'b' type converts a number to binary.");
 assertEquals("{0:o}".format(10), "12", "The 'o' type converts a number to octal.");
+assertEquals("{0:#o}".format(10), "012", "The 'o' type converts a number to octal with a preceding 0 when the '#' flag is used.");
 assertEquals("{0:x}".format(10), "a", "The 'x' type converts a number to lower-case hexadecimal.");
+assertEquals("{0:#x}".format(10), "0xa", "The 'x' type converts a number to lower-case hexadecimal with a preceding 0x when the '#' flag is used.");
 assertEquals("{0:X}".format(10), "A", "The 'X' type converts a number to upper-case hexadecimal.");
+assertEquals("{0:#X}".format(10), "0XA", "The 'X' type converts a number to upper-case hexadecimal with a preceding 0X when the '#' flag is used.");
 
 assertEquals("{0:e}".format(5), "5 e+00", "The 'e' type converts to scientific notation with at least two digits in the exponent.");
 assertEquals("{0:E}".format(5), "5 E+00", "The 'E' type converts to upper-case scientific notation with at least two digits in the exponent.");
